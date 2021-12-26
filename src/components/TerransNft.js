@@ -61,13 +61,13 @@ function TerransNft() {
       switch(searchBy){
         case terranOptions.rank: {
           tokenId = getTokenIdByRank(text);
-          navigate('/terransnft/rank/' + text);
+          navigate('/terransnft-search/rank/' + text);
           break;
         }
         case terranOptions.tokenId:{
           if(isValidTokenId(text)){
             tokenId = parseInt(text);
-            navigate('/terransnft/tokenid/' + tokenId);
+            navigate('/terransnft-search/tokenid/' + tokenId);
           } else {
             setMessage('Terran not found!');
             return;
@@ -77,10 +77,10 @@ function TerransNft() {
         case terranOptions.terranId:{
           if(isValidTitle(text)){
             tokenId = getTokenIdByTitle(text);
-            navigate('/terransnft/terran/' + getTerranIdByTitle(text));
+            navigate('/terransnft-search/terran/' + getTerranIdByTitle(text));
           }else{
             tokenId = getTokenIdByTerranId(text);
-            navigate('/terransnft/terran/' + text);
+            navigate('/terransnft-search/terran/' + text);
           }
           break;
         }

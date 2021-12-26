@@ -13,10 +13,10 @@ function App() {
       <div className='App'>
         <Routes>
           <Route path='/' element={<TerransNft/>} />
-          <Route path='/terransnft' element={<TerransNft/>} />
-          <Route path='/terransnft/terran/:queryId' element={<TerransNft/>} />
-          <Route path='/terransnft/tokenid/:queryId' element={<TerransNft/>} />
-          <Route path='/terransnft/rank/:queryId' element={<TerransNft/>} />
+          <Route path='/terransnft-search' element={<TerransNft/>} />
+          <Route path='/terransnft-search/terran/:queryId' element={<TerransNft/>} />
+          <Route path='/terransnft-search/tokenid/:queryId' element={<TerransNft/>} />
+          <Route path='/terransnft-search/rank/:queryId' element={<TerransNft/>} />
         </Routes>
       </div>
     </Router>
