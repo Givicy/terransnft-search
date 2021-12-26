@@ -1,0 +1,107 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+#md-search {
+  position: absolute;
+  top: 8px;
+  right: 0;
+}
+
+#md-search svg {
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.search-box {
+  margin-top: 20px;
+  position: relative;
+}
+
+#submitRequest {
+  display:none;
+}
+
+.terran {
+  padding-top:20px;
+  justify-content: center;
+}
+
+.terran-detail {
+  padding-bottom: 5px;
+}
+
+.terran-download {
+  cursor: pointer;
+  position: relative;
+  font-size: 30px;
+}
+
+.terran-download svg {
+  top: 5px;
+  left:10px;
+  position: absolute;
+}
+
+.terran-img {
+  width: 350px;
+}
+
+.token-id {
+  height: 20px;
+}
+
+.terran-title {
+  margin: 0px;
+}
+
+.terran-detail {
+  font-size: 20px;
+  text-align: left;
+}
+
+.terran-detail-owner {
+  font-size: 16px;
+  padding: 10px 0;
+}
+
+.terran-detail-owner a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.terran-detail span.float-right {
+  float: right;
+}
+
+.token-id {
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 0;
+  font-size: 20px;
+  outline: 0;
+  width: 400px;
+  height: 40px;
+  background-color: #282c34;
+  color: #fff;
+}
+
+#search-by {
+  text-align: left;
+}
+
+#search-by label {
+  font-size: 18px;
+  cursor: pointer;
+}
