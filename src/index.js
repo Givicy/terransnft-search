@@ -2,11 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import { AnalyticsProvider } from 'use-analytics';
+import { analytics } from './utils/analytics';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <AnalyticsProvider instance={analytics}>
+      <App />
+    </AnalyticsProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

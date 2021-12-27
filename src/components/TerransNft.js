@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import {
-  useNavigate  
+  useLocation
+  , useNavigate  
   , useParams
 } from "react-router-dom";
 import { 
@@ -10,6 +11,7 @@ import {
   , RadioGroup
   , TextField
 } from '@mui/material';
+import { useAnalytics } from 'use-analytics';
 import _ from 'underscore';
 import Terrans from './Terrans';
 import { MdSearch } from 'react-icons/md';
@@ -29,6 +31,8 @@ import {
 } from '../helpers/terrans-helper';
 
 function TerransNft() {
+  const analytics = useAnalytics();
+  let location = useLocation();
   const navigate = useNavigate();
   const { queryId } = useParams();
   
@@ -56,6 +60,10 @@ function TerransNft() {
   const getTerran = (text) => {
     text = text ?? searchText;
     text = text.trim();
+    analytics.track('getTerran', {
+      searchBy: searchBy,
+      searchText: text
+    });
     setTerranMetadata('');
     if(isValidSearchText(text)){
       setMessage('loading...');
@@ -141,8 +149,9 @@ function TerransNft() {
     if(!_.isUndefined(queryId)){
       getTerran(queryId);
     }
+    analytics.page();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[queryId]);
+  },[queryId, location]);
 
   return (
     <header className='App-header'>

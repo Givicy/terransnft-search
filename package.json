@@ -4,20 +4,22 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@analytics/google-analytics": "^0.5.3",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@mui/material": "^5.2.5",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "analytics": "^0.7.19",
     "axios": "^0.24.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-ga": "^3.3.0",
     "react-icons": "^4.3.1",
     "react-router-dom": "^6.2.1",
     "react-scripts": "4.0.3",
     "underscore": "^1.13.1",
+    "use-analytics": "0.0.5",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
