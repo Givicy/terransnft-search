@@ -7,11 +7,15 @@ import {
   ThemeProvider
   , createTheme
 } from '@mui/material/styles';
+import ReactGA from 'react-ga';
 import TerransNft from './components/TerransNft';
 import { 
   terranOptions
 } from './helpers/terrans-helper';
 import './App.css';
+
+ReactGA.initialize('G-48D7EMMR9L');
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 function App() {
   const darkTheme = createTheme({

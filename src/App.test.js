@@ -1,6 +1,7 @@
 import _ from 'underscore';
 import { 
-  getTerranIdByTitle
+  getInitialSearchByValue
+  , getTerranIdByTitle
   , getTerranRankByTitle
   , getTerranRaritySource
   , getTokenIdByTerranId
@@ -8,6 +9,7 @@ import {
   , isValidSearchText
   , isValidTitle
   , padZeros
+  , terranOptions
 } from './helpers/terrans-helper';
 
 const terranIds = require('./data/terranIds.json');
@@ -243,4 +245,40 @@ test('Get Terran Ranks for Terran #0063 - Should be current: 7458 previous: 7500
 
   const previousRank = getTerranRankByTitle(title, 'v1');
   expect(previousRank).toBe(7500);
+});
+
+test('Get initial search by from url - #/rank', () => {
+  const href = 'http://localhost/terransnft-search#/rank/1';
+  const searchBy = getInitialSearchByValue(href);
+  expect(searchBy).toBe(terranOptions.rank);
+});
+
+test('Get initial search by from url - #/terran', () => {
+  const href = 'http://localhost/terransnft-search#/terran/1';
+  const searchBy = getInitialSearchByValue(href);
+  expect(searchBy).toBe(terranOptions.terran);
+});
+
+test('Get initial search by from url - #/tokenId', () => {
+  const href = 'http://localhost/terransnft-search#/tokenId/1';
+  const searchBy = getInitialSearchByValue(href);
+  expect(searchBy).toBe(terranOptions.tokenId);
+});
+
+test('Get initial search by from url - /#/rank', () => {
+  const href = 'http://localhost/terransnft-search/#/rank/1';
+  const searchBy = getInitialSearchByValue(href);
+  expect(searchBy).toBe(terranOptions.rank);
+});
+
+test('Get initial search by from url - /#/terran', () => {
+  const href = 'http://localhost/terransnft-search/#/terran/1';
+  const searchBy = getInitialSearchByValue(href);
+  expect(searchBy).toBe(terranOptions.terran);
+});
+
+test('Get initial search by from url - /#/tokenId', () => {
+  const href = 'http://localhost/terransnft-search/#/tokenId/1';
+  const searchBy = getInitialSearchByValue(href);
+  expect(searchBy).toBe(terranOptions.tokenId);
 });

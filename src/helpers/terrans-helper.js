@@ -19,14 +19,13 @@ export const generateSearchByLink = (href, option) => {
 export const getInitialSearchByValue = (href) => {
   let searchBy = terranOptions.terran;
   if(href){
-    if(href.toLowerCase().indexOf(homePage + '#/tokenid/') > 0) {
+    if(href.toLowerCase().indexOf('#/tokenid/') > 0) {
       searchBy = terranOptions.tokenId;
     }
-    if(href.toLowerCase().indexOf(homePage + '#/rank/') > 0) {
+    if(href.toLowerCase().indexOf('#/rank/') > 0) {
       searchBy = terranOptions.rank;
     }
   }
-  console.log(href, searchBy);
   return searchBy;
 }
 
