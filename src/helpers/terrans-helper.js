@@ -26,6 +26,7 @@ export const getInitialSearchByValue = (href) => {
       searchBy = terranOptions.rank;
     }
   }
+  console.log(href, searchBy);
   return searchBy;
 }
 
