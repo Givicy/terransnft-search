@@ -14,7 +14,7 @@ import {
 } from './helpers/terrans-helper';
 import './App.css';
 
-ReactGA.initialize('G-48D7EMMR9L');
+ReactGA.initialize('UA-215931387-1');
 ReactGA.pageview(window.location.pathname + window.location.search);
 
 function App() {
