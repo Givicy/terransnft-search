@@ -8,12 +8,15 @@ import {
   FormControlLabel 
   , Radio 
   , RadioGroup
+  , TextField
 } from '@mui/material';
 import _ from 'underscore';
 import Terrans from './Terrans';
 import { MdSearch } from 'react-icons/md';
 import { 
-  getInitialSearchByValue
+  generateSearchByLink
+  , getInitialSearchByValue
+  , getPlaceholder
   , getTerranIdByTitle
   , getTerranRankByTitle
   , getTokenIdByRank
@@ -32,7 +35,7 @@ function TerransNft() {
   const [message, setMessage] = useState('');
   const [owner, setOwner] = useState('');
   const [searchBy, setSearchBy] = useState(getInitialSearchByValue(window.location.href));
-  const [searchPlaceholder, setSearchPlaceholder] = useState('Terran #XXXXX or XXXXX')
+  const [searchPlaceholder, setSearchPlaceholder] = useState(getPlaceholder(searchBy));
   const [searchText, setSearchText] = useState(_.isUndefined(queryId) ? '' : queryId);
   const [terranMetadata, setTerranMetadata] = useState('');
 
@@ -47,44 +50,48 @@ function TerransNft() {
 
   const onSearchByChange = event => {
     setSearchBy(event.target.value);
-    
-    setSearchPlaceholder(event.target.value === terranOptions.terranId ? 'Terran #XXXXX or XXXXX' : 'XXXXX');
+    setSearchPlaceholder(getPlaceholder(event.target.value));
   }
 
   const getTerran = (text) => {
     text = text ?? searchText;
+    text = text.trim();
     setTerranMetadata('');
     if(isValidSearchText(text)){
       setMessage('loading...');
       let tokenId = -1;
 
+      const link = generateSearchByLink(window.location.href, searchBy);
+      let linkParameter = text;
       switch(searchBy){
         case terranOptions.rank: {
           tokenId = getTokenIdByRank(text);
-          navigate('/terransnft-search/rank/' + text);
           break;
         }
         case terranOptions.tokenId:{
           if(isValidTokenId(text)){
             tokenId = parseInt(text);
-            navigate('/terransnft-search/tokenid/' + tokenId);
+            linkParameter = tokenId;
           } else {
             setMessage('Terran not found!');
             return;
           }
           break;
         }
-        case terranOptions.terranId:{
+        case terranOptions.terran:{
           if(isValidTitle(text)){
             tokenId = getTokenIdByTitle(text);
-            navigate('/terransnft-search/terran/' + getTerranIdByTitle(text));
+            linkParameter = getTerranIdByTitle(text);
           }else{
             tokenId = getTokenIdByTerranId(text);
-            navigate('/terransnft-search/terran/' + text);
           }
           break;
         }
         default: break;
+      }
+
+      if(window.location.href.indexOf(link + linkParameter) < 0){
+        navigate(link + linkParameter);
       }
 
       if(tokenId >= 0){
@@ -107,6 +114,7 @@ function TerransNft() {
             _.extend(res.data, { 
               tokenId: tokenId 
               , rank: getTerranRankByTitle(res.data.title)
+              , previousRank: getTerranRankByTitle(res.data.title, 'v1')
             });
             setTerranMetadata(res.data);
           });
@@ -139,11 +147,11 @@ function TerransNft() {
   return (
     <header className='App-header'>
       <form onSubmit={onTerranSearchSubmit}>
-        <div className='search-box'>  
-          <input type='text' className='token-id' value={searchText} onChange={onChangeSearchTextHandler} placeholder={searchPlaceholder} />
+        <div className='search-box'>
           <div id='search-by'>
+          <TextField fullWidth  className="search-text-field" label={searchPlaceholder} value={searchText} onChange={onChangeSearchTextHandler} variant="standard" />
           <RadioGroup row aria-label="search-by" name="search-by-radio-buttons-group" value={searchBy} onChange={onSearchByChange}>
-            <FormControlLabel value={terranOptions.terranId} control={<Radio />} label="Terran Number" />
+            <FormControlLabel value={terranOptions.terran} control={<Radio />} label="Terran Number" />
             <FormControlLabel value={terranOptions.tokenId} control={<Radio />} label="Token Id" />
             <FormControlLabel value={terranOptions.rank} control={<Radio />} label="Rank" />
           </RadioGroup>

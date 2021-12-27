@@ -1,9 +1,13 @@
+import _ from 'underscore';
 import { 
   getTerranIdByTitle
+  , getTerranRankByTitle
+  , getTerranRaritySource
   , getTokenIdByTerranId
   , getTokenIdByTitle 
-  , isValidSearchText,
-  isValidTitle
+  , isValidSearchText
+  , isValidTitle
+  , padZeros
 } from './helpers/terrans-helper';
 
 const terranIds = require('./data/terranIds.json');
@@ -11,9 +15,9 @@ const terranIds = require('./data/terranIds.json');
 test('Get Terran id by title should all be valid', () => {
   for(let i = 0; i < terranIds.length; i++){
     const terranId = getTerranIdByTitle(terranIds[i].title);
-    expect(terranId).toBeGreaterThan(0);
-    expect(terranId).toBeLessThan(10001);
-    expect(terranId).toEqual(parseInt(terranIds[i].actualId));
+    expect(parseInt(terranId)).toBeGreaterThan(0);
+    expect(parseInt(terranId)).toBeLessThan(10001);
+    expect(parseInt(terranId)).toEqual(parseInt(terranIds[i].actualId));
   }
 });
 
@@ -32,6 +36,28 @@ test('Get token id by Terran id/number should all be valid', () => {
     expect(tokenId).toBeGreaterThan(-1);
     expect(tokenId).toBeLessThan(10000);
     expect(tokenId).toEqual(terranIds[i].tokenId);
+  }
+});
+
+test ('Get Terran Id from Title - Current', () => {
+  for(let i = 1; i < 10001;i++){
+    const terranId = getTerranIdByTitle(padZeros(i,4));
+    if(i < 10){
+      expect(terranId).toBe('000' + i);
+    } else if(i < 100){
+      expect(terranId).toBe('00' + i);
+    } else if(i < 1000){
+      expect(terranId).toBe('0' + i);
+    } else {
+      expect(terranId).toBe(i.toString());
+    }
+  }
+});
+
+test ('Get Terran Id from Title - V1', () => {
+  for(let i = 1; i < 10001;i++){
+    const terranId = getTerranIdByTitle(i.toString(), 'v1');
+    expect(terranId).toBe(i.toString());
   }
 });
 
@@ -137,3 +163,84 @@ test('Search text someTerran #0001 should be invalid', () =>{
   expect(isValid).toBe(false);
 });
 
+test('Get rank by title Terran #0001', () => {
+  const title = 'Terran #0001';
+  const rank = getTerranRankByTitle(title);
+  expect(rank).toBe(9401);
+});
+
+test('Get terran id by title Terran #0001', () => {
+  const title = 'Terran #0001';
+  const terranId = getTerranIdByTitle(title);
+  expect(terranId).toBe('0001');
+});
+
+test('Get rank by title Terran #0031', () => {
+  const title = 'Terran #0031';
+  const rank = getTerranRankByTitle(title);
+  expect(rank).toBe(919);
+});
+
+test('Get terran id by title Terran #0031', () => {
+  const title = 'Terran #0031';
+  const terranId = getTerranIdByTitle(title);
+  expect(terranId).toBe('0031');
+});
+
+test('Get rank by title Terran #0031', () => {
+  const title = 'Terran #0031';
+  const rank = getTerranRankByTitle(title);
+  expect(rank).toBe(919);
+});
+
+test('Get terran id by title Terran #0677', () => {
+  const title = 'Terran #0677';
+  const terranId = getTerranIdByTitle(title);
+  expect(terranId).toBe('0677');
+});
+
+test('Get rank by title Terran #9999', () => {
+  const title = 'Terran #9999';
+  const rank = getTerranRankByTitle(title);
+  expect(rank).toBe(9820);
+});
+
+test('Get terran id by title Terran #9999', () => {
+  const title = 'Terran #9999';
+  const terranId = getTerranIdByTitle(title);
+  expect(terranId).toBe('9999');
+});
+
+test('Get current terran rarity source - Rank 1 should be Terran #6520', () => {
+  const source = getTerranRaritySource();
+  const rankOne = _.find(source, (r) => {
+    return r.Rank === 1;
+  });
+  expect(rankOne.TerranName).toBe('Terran #6520');
+});
+
+test('Get terran rarity source V1 - Rank 1 should be Terran #8770', () => {
+  const source = getTerranRaritySource('v1');
+  const rankOne = _.find(source, (r) => {
+    return r.Rank === 1;
+  });
+  expect(rankOne.TerranName).toBe('Terran #8770');
+});
+
+test('Get current terran rarity source - Rank 1 should be Terran #6520', () => {
+  const source = getTerranRaritySource();
+  const rankOne = _.find(source, (r) => {
+    return r.Rank === 1;
+  });
+  expect(rankOne.TerranName).toBe('Terran #6520');
+});
+
+test('Get Terran Ranks for Terran #0063 - Should be current: 7458 previous: 7500', () => {
+  const title = 'Terran #0063';
+  
+  const rank = getTerranRankByTitle(title);
+  expect(rank).toBe(7458);
+
+  const previousRank = getTerranRankByTitle(title, 'v1');
+  expect(previousRank).toBe(7500);
+});

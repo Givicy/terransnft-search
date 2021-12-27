@@ -1,6 +1,7 @@
 import _ from 'underscore';
 import { MdSave } from 'react-icons/md';
 import axios from 'axios';
+import Typography from '@mui/material/Typography';
 const Terrans = ({metadata, owner, message}) => {
     const handleDownload = () => {
         const lastIndexOfSlash = metadata.media.lastIndexOf('/') + 1;
@@ -33,19 +34,28 @@ const Terrans = ({metadata, owner, message}) => {
     return metadata ? 
     <div className='terran'>
         <img src={metadata.media} className='terran-img' alt='' />
-        <h3 className='terran-title'>{metadata.title}<span className='terran-download'><MdSave onClick={handleDownload}/></span></h3>
+        <Typography variant="h4" gutterBottom component="div">
+            {metadata.title}<span className='terran-download'><MdSave onClick={handleDownload}/></span>
+        </Typography>
         {
             metadata.rank ?
-            <div>
+            <Typography variant="h5" gutterBottom component="div">
                 <span>Rank: {metadata.rank}</span>
-            </div>
+            </Typography>
             : ''
         }
-        { owner ? 
-                <div className='terran-detail-owner'>
-                    <a target='_blank' href={'https://finder.terra.money/mainnet/address/'+owner} rel='noreferrer'>{owner}</a>
-                </div>
-        : ''}
+        {
+            metadata.previousRank ?
+            <Typography variant="subtitle1" gutterBottom component="div">
+                <span>Previous Rank: {metadata.previousRank}</span>
+            </Typography>
+            : ''
+        }
+        {/* { owner ? 
+            <Typography variant="subtitle2" gutterBottom component="div" className='terran-detail-owner'>
+                <a target='_blank' href={'https://finder.terra.money/mainnet/address/'+owner} rel='noreferrer'>{owner}</a>
+            </Typography>
+        : ''} */}
         {
             actualTraits.map((trait) => (
                 trait.exists ?
