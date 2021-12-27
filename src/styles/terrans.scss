@@ -1,0 +1,42 @@
+.terran {
+    padding-top:20px;
+    justify-content: center;
+    padding-bottom: 20px;
+    
+    &-detail {
+        padding-bottom: 3px;
+        font-size: 1rem;
+        text-align: left;
+
+        span.float-right {
+            float: right;
+          }
+      }
+
+    &-download {
+        cursor: pointer;
+        position: relative;
+        font-size: 30px;
+
+        svg {
+            top: 0px;
+            left:10px;
+            position: absolute;
+          }
+      }
+
+    &-img {
+        width: 350px;
+    }
+
+    &-title {
+        margin: 0px;
+    }
+}
+
+
+@media only screen and (max-width: 350px) {
+    .terran-img {
+      width: 300px;
+    }
+  }

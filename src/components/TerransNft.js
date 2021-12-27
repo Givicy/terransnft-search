@@ -29,6 +29,7 @@ import {
   , isValidTokenId
   , terranOptions
 } from '../helpers/terrans-helper';
+import '../styles/terrans-nft.scss';
 
 function TerransNft() {
   const analytics = useAnalytics();

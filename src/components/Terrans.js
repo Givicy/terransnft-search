@@ -2,6 +2,8 @@ import _ from 'underscore';
 import { MdSave } from 'react-icons/md';
 import axios from 'axios';
 import Typography from '@mui/material/Typography';
+import '../styles/terrans.scss';
+
 const Terrans = ({metadata, owner, message}) => {
     const handleDownload = () => {
         const lastIndexOfSlash = metadata.media.lastIndexOf('/') + 1;
