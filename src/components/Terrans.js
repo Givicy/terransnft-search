@@ -23,7 +23,7 @@ const Terrans = ({metadata, owner, message}) => {
           })
     }
 
-    const actualTraits = _.map(['Armor', 'Background', 'Beard', 'Body', 'Class', 'Facial Features', 'Hair', 'Helmet', 'Logo', 'Pet', 'Sex', 'Suit'], (trait) => {
+    const actualTraits = _.map(['Armor', 'Background', 'Beard', 'Body', 'Class', 'Facial Features', 'Hair', 'Helmet', 'Logo', 'Pet', 'Sex','Smoke', 'Suit'], (trait) => {
         return {
             'title': trait,
             'property': trait.toLowerCase().replace(/ /g, ''),
