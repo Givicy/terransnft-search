@@ -53,11 +53,6 @@ const Terrans = ({metadata, owner, message}) => {
             </Typography>
             : ''
         }
-        {/* { owner ? 
-            <Typography variant="subtitle2" gutterBottom component="div" className='terran-detail-owner'>
-                <a target='_blank' href={'https://finder.terra.money/mainnet/address/'+owner} rel='noreferrer'>{owner}</a>
-            </Typography>
-        : ''} */}
         {
             actualTraits.map((trait) => (
                 trait.exists ?

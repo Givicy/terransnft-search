@@ -38,7 +38,6 @@ function TerransNft() {
   const { queryId } = useParams();
   
   const [message, setMessage] = useState('');
-  const [owner, setOwner] = useState('');
   const [searchBy, setSearchBy] = useState(getInitialSearchByValue(window.location.href));
   const [searchPlaceholder, setSearchPlaceholder] = useState(getPlaceholder(searchBy));
   const [searchText, setSearchText] = useState(_.isUndefined(queryId) ? '' : queryId);
@@ -132,18 +131,6 @@ function TerransNft() {
       console.error(err);
     });
 
-    getOwnerOfTokenId(tokenId);
-  }
-
-  const getOwnerOfTokenId = (tokenId) => {
-    const url = 'https://fcd.terra.dev/wasm/contracts/terra10f6n78sx84937kcqrthf2gkfxgfjgmxpqrlug7/store?query_msg=%7B%22owner_of%22:%7B%22token_id%22:%22'+tokenId+'%22%7D%7D';
-    axios.get(url).then(res =>{
-      if(res && res.data && res.data.result && res.data.result.owner){
-        setOwner(res.data.result.owner);
-      }
-    }).catch(err =>{
-      console.error(err);
-    });
   }
 
   useEffect(() => {
@@ -172,7 +159,7 @@ function TerransNft() {
           </span>
         </div>
       </form>
-      <Terrans metadata={terranMetadata} owner={owner} message={message} />
+      <Terrans metadata={terranMetadata} message={message} />
     </header>
   );
 }
